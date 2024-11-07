@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ayo roaster</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      position: relative;
+      overflow-x: hidden; /* Prevent horizontal scroll from showing */
+    }
+
+    .donation-message {
+      position: absolute;
+      top: 100px; /* Adjust this value to move the message lower */
+      left: 90%; /* Start just off the right side of the screen */
+      font-size: 20px;
+      color: green;
+      white-space: nowrap;
+      padding-right: 100%; /* Ensure space for the message to start */
+    }
+
+    #donateButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #donationCount {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="donateButton">roast ayo</button>
+  <div id="donationCount">Total Donations: $0</div>
+
+  <script>
+    // Get the stored donation count from localStorage (if it exists)
+    let donationCount = localStorage.getItem("donationCount");
+
+    if (donationCount === null) {
+      // If no donation count exists in localStorage, start at 0
+      donationCount = 0;
+    } else {
+      // If a donation count exists, update the display
+      donationCount = parseInt(donationCount);
+      document.getElementById('donationCount').textContent = `total roasts: ${donationCount}`;
+    }
+
+    // Set up the donation button
+    const donateButton = document.getElementById('donateButton');
+
+    donateButton.addEventListener('click', function() {
+      // Increment the donation count
+      donationCount++;
+
+      // Update the donation count display
+      document.getElementById('donationCount').textContent = `total roasts: ${donationCount}`;
+
+      // Store the new donation count in localStorage
+      localStorage.setItem("donationCount", donationCount);
+
+      // Create the scrolling message
+      const message = document.createElement('div');
+      message.className = 'donation-message';
+      message.textContent = `ayo got roasted`;
+
+      // Add the message to the body and animate it
+      document.body.appendChild(message);
+
+      // Animate the message to scroll across the screen
+      message.animate([
+        { transform: 'translateX(100%)' }, // Start just off the right side of the screen
+        { transform: 'translateX(-100%)' } // End just off the left side of the screen
+      ], {
+        duration: 8000, // 5 seconds for the message to scroll across
+        easing: 'linear',
+        fill: 'forwards'
+      });
+
+      // Remove the message after it finishes animating
+      setTimeout(() => {
+        message.remove();
+      }, 8000); // Match this time with the animation duration
+    });
+  </script>
+
+</body>
+</html>
