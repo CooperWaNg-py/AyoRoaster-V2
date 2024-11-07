@@ -83,7 +83,7 @@
         { transform: 'translateX(100%)' }, // Start just off the right side of the screen
         { transform: 'translateX(-100%)' } // End just off the left side of the screen
       ], {
-        duration: 8000, // 5 seconds for the message to scroll across
+        duration: 10000, // 5 seconds for the message to scroll across
         easing: 'linear',
         fill: 'forwards'
       });
@@ -91,7 +91,7 @@
       // Remove the message after it finishes animating
       setTimeout(() => {
         message.remove();
-      }, 8000); // Match this time with the animation duration
+      }, 10000); // Match this time with the animation duration
     });
   </script>
 
