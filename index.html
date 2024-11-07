@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ayo roaster</title>
+  <title>Donation Counter</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,11 +16,9 @@
     .donation-message {
       position: absolute;
       top: 100px; /* Adjust this value to move the message lower */
-      left: 90%; /* Start just off the right side of the screen */
       font-size: 20px;
       color: green;
       white-space: nowrap;
-      padding-right: 100%; /* Ensure space for the message to start */
     }
 
     #donateButton {
@@ -42,17 +40,15 @@
 <body>
 
   <button id="donateButton">roast ayo</button>
-  <div id="donationCount">Total Donations: $0</div>
+  <div id="donationCount">total roasts: 0</div>
 
   <script>
     // Get the stored donation count from localStorage (if it exists)
     let donationCount = localStorage.getItem("donationCount");
 
     if (donationCount === null) {
-      // If no donation count exists in localStorage, start at 0
       donationCount = 0;
     } else {
-      // If a donation count exists, update the display
       donationCount = parseInt(donationCount);
       document.getElementById('donationCount').textContent = `total roasts: ${donationCount}`;
     }
@@ -75,15 +71,16 @@
       message.className = 'donation-message';
       message.textContent = `ayo got roasted`;
 
-      // Add the message to the body and animate it
+      // Set initial position just outside the right edge of the viewport
+      message.style.left = "100%";
       document.body.appendChild(message);
 
       // Animate the message to scroll across the screen
       message.animate([
-        { transform: 'translateX(100%)' }, // Start just off the right side of the screen
-        { transform: 'translateX(-100%)' } // End just off the left side of the screen
+        { transform: 'translateX(0)' },               // Start just off the right side
+        { transform: 'translateX(-100vw)' }           // End off the left side of the viewport
       ], {
-        duration: 10000, // 5 seconds for the message to scroll across
+        duration: 5000, // Duration of the scroll
         easing: 'linear',
         fill: 'forwards'
       });
@@ -91,7 +88,7 @@
       // Remove the message after it finishes animating
       setTimeout(() => {
         message.remove();
-      }, 10000); // Match this time with the animation duration
+      }, 5000); // Matches the duration of the animation
     });
   </script>
 
